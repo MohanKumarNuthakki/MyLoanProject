@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Smart Loan Portal</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5d6d6, #f2b6b6);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      width: 380px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #d64545;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #d64545;
+      outline: none;
+      box-shadow: 0 0 8px rgba(214,69,69,0.3);
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #d64545;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #b23232;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .home-btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: #555;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .home-btn:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Login</h2>
+
+    <form onsubmit="event.preventDefault(); adminLogin();">
+      <input type="text" id="username" placeholder="Enter Username" required>
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    <div id="message"></div>
+
+    <a href="index.html" class="home-btn">⬅ Back to Home</a>
+  </div>
+
+  <script>
+    async function adminLogin() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("/admin-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+        const msgDiv = document.getElementById("message");
+        msgDiv.textContent = data.message;
+
+        if (data.status === "success") {
+          msgDiv.style.color = "green";
+          setTimeout(() => window.location.href = "/admin-dashboard", 1000);
+        } else {
+          msgDiv.style.color = "red";
+        }
+      } catch (err) {
+        document.getElementById("message").textContent = "Error connecting to server!";
+      }
+    }
+  </script>
+</body>
+</html>

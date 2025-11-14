@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>User Dashboard</title>
+<style>
+  body{font-family:Poppins, sans-serif;background:#fff8f8;margin:0;padding:24px}
+  .card{max-width:900px;margin:10px auto;background:#fff;padding:20px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
+  h2{color:#b30000;margin-bottom:12px}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .box{flex:1;min-width:220px;background:#ffe6e6;padding:12px;border-radius:8px}
+  .actions{margin-top:14px}
+  .btn{background:#d64545;color:#fff;padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+  .btn.secondary{background:#ffcccc;color:#b30000}
+  table{width:100%;border-collapse:collapse;margin-top:12px}
+  td,th{padding:8px;border:1px solid #eee;text-align:left}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome, {{ user.name }}</h2>
+
+    <div class="row">
+      <div class="box"><strong>Email</strong><div>{{ user.email }}</div></div>
+      <div class="box"><strong>Phone</strong><div>{{ user.phone or 'N/A' }}</div></div>
+      <div class="box"><strong>Joined</strong><div>{{ user.created_at }}</div></div>
+    </div>
+
+    <div class="actions">
+      {% if loan %}
+        <h3>Your Loan Application</h3>
+        <table>
+          <tr><th>Applied On</th><td>{{ loan.created_at }}</td></tr>
+          <tr><th>Loan Amount</th><td>{{ loan.loan_amount or loan.loan_amount }}</td></tr>
+          <tr><th>Status</th><td>{{ loan.loan_status }}</td></tr>
+          <tr><th>Credit Score</th><td>{{ loan.credit_score }}</td></tr>
+        </table>
+        <div style="margin-top:12px">
+          <button class="btn secondary" onclick="location.href='/'">Back to Home</button>
+        </div>
+      {% else %}
+        <h3>No loan application found</h3>
+        <p>You have not applied for a loan yet.</p>
+        <button class="btn" onclick="location.href='/apply-loan'">Apply for Loan Now</button>
+      {% endif %}
+      <div style="margin-top:14px">
+        <button class="btn secondary" onclick="location.href='/logout'">Logout</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

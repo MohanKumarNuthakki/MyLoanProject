@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>User Login</title>
+<style>
+  body{font-family:Poppins, sans-serif;background:linear-gradient(135deg,#f7caca,#f4a5a5);margin:0;display:flex;align-items:center;justify-content:center;height:100vh}
+  .card{background:#fff;padding:28px;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.08);width:420px}
+  h2{text-align:center;color:#d64545;margin-bottom:14px}
+  label{display:block;margin:8px 0 6px;font-weight:600}
+  input{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc}
+  button{width:100%;padding:12px;margin-top:14px;border:none;border-radius:10px;background:#d64545;color:#fff;font-weight:700;cursor:pointer}
+  .link{display:block;text-align:center;margin-top:10px;color:#b30000;text-decoration:none}
+  .error{color:red;text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>User Login</h2>
+    <!-- backend handles POST to /user-login -->
+    <form method="POST" action="/user-login">
+      <label>Email</label><input name="email" type="email" required>
+      <label>Password</label><input name="password" type="password" required>
+      <button type="submit">Login</button>
+    </form>
+    <a class="link" href="/user-register">Create new account</a>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  </div>
+</body>
+</html>

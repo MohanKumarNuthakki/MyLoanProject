@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Smart Loan</title>
+<style>
+  body { font-family: 'Poppins', sans-serif; background:#fff8f8; color:#333; margin:0; padding:20px; }
+  h2 { text-align:center; color:#b30000; margin-bottom:20px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th, td { border:1px solid #ccc; padding:10px; text-align:center; }
+  th { background-color:#ffcccc; }
+  tr:nth-child(even) { background-color:#ffe6e6; }
+  .home-btn { display:inline-block; padding:10px 15px; background:#555; color:#fff; border-radius:8px; text-decoration:none; }
+  .home-btn:hover { background:#333; }
+</style>
+</head>
+<body>
+<h2>Admin Dashboard - Loan Status</h2>
+
+<table>
+  <tr>
+    <th>Loan ID</th>
+    <th>User Name</th>
+    <th>Email</th>
+    <th>Loan Amount</th>
+    <th>Status</th>
+  </tr>
+  {% for loan in loans %}
+  <tr>
+    <td>{{ loan.id }}</td>
+    <td>{{ loan.name or 'N/A' }}</td>
+    <td>{{ loan.email or 'N/A' }}</td>
+    <td>{{ loan.amount }}</td>
+    <td>{{ loan.status }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<a href="index.html" class="home-btn">⬅ Back to Home</a>
+</body>
+</html>
